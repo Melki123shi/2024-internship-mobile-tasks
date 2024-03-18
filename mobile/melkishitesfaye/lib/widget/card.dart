@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:melkishitesfaye/pages/detail.dart';
 
 class CardWidget extends StatefulWidget {
@@ -9,15 +10,11 @@ class CardWidget extends StatefulWidget {
 }
 
 class _CardWidgetState extends State<CardWidget> {
-  void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DetailPage()));
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: click,
+      onTap: () => context.go('/details'),
       child: Container(
         height: 240,
         width: 366,

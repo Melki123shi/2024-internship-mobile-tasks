@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:melkishitesfaye/pages/add_products.dart';
+import 'package:go_router/go_router.dart';
 import 'package:melkishitesfaye/widget/card.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,10 +11,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final int list = 6;
-  void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const AddProducts()));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 254, 1),
       floatingActionButton: FloatingActionButton(
-        onPressed: click,
+        onPressed:  () => context.go('/add_products'),
         child: Icon(
           Icons.add,
           color: Colors.white,

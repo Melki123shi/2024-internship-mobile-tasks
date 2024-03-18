@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:melkishitesfaye/widget/button.dart';
 
 class AddProducts extends StatefulWidget {
@@ -47,6 +48,17 @@ class _AddProductsState extends State<AddProducts> {
           'Add Product',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         )),
+        leading: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child:IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            color: Color.fromRGBO(63, 81, 243, 1),
+            onPressed: () => context.go('/'),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(

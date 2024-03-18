@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:melkishitesfaye/widget/button.dart';
 
 class DetailPage extends StatefulWidget {
@@ -21,6 +22,25 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Container(
+          margin: EdgeInsets.all(8),
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(50),
+          ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back_ios_new_rounded),
+              color: Color.fromRGBO(63, 81, 243, 1),
+              onPressed: () => context.go('/'),
+            ),
+          ),
+        ),
       backgroundColor: Color.fromRGBO(254, 254, 254, 1),
       body: SingleChildScrollView(
         child: Column(
@@ -124,7 +144,10 @@ class _DetailPageState extends State<DetailPage> {
                                   child: Center(
                                     child: Text(
                                       (index + currentNumber).toString(),
-                                      style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+                                      style: TextStyle(
+                                          color: isSelected
+                                              ? Colors.white
+                                              : Colors.black),
                                     ),
                                   ),
                                 ),
@@ -138,7 +161,9 @@ class _DetailPageState extends State<DetailPage> {
                                             Color.fromARGB(255, 236, 234, 234)),
                                   ],
                                   borderRadius: BorderRadius.circular(8),
-                                  color: isSelected ? Color.fromRGBO(63, 81, 243, 1): Colors.white,
+                                  color: isSelected
+                                      ? Color.fromRGBO(63, 81, 243, 1)
+                                      : Colors.white,
                                 ),
                               ),
                             ),
