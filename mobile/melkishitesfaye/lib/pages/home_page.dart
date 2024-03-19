@@ -94,9 +94,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   itemCount: products.length,
                   itemBuilder: (context, index) {
-                    print(index);
                     Product foundProduct = products[index];
-                    print(foundProduct);
                     return GestureDetector(
                       onTap: () {
                         context.goNamed(RouteNames.detail, pathParameters: {'id': '${index + 1}'});

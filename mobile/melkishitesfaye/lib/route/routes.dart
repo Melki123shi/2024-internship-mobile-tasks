@@ -30,7 +30,6 @@ class RouteConfig {
                     }
                   }
 
-                  print(currproduct.id);
                   return MaterialPage(
                       child: DetailPage(
                     price: currproduct.price,
