@@ -3,7 +3,19 @@ import 'package:go_router/go_router.dart';
 import 'package:melkishitesfaye/widget/button.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  final String price;
+  final String productType;
+  final String rating;
+  final String imageUrl;
+  final String productName;
+
+  const DetailPage(
+      {super.key,
+      required this.price,
+      required this.productType,
+      required this.rating,
+      required this.imageUrl,
+      required this.productName});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -34,19 +46,19 @@ class _DetailPageState extends State<DetailPage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(50),
           ),
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new_rounded),
-              color: Color.fromRGBO(63, 81, 243, 1),
-              onPressed: () => context.go('/'),
-            ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            color: Color.fromRGBO(63, 81, 243, 1),
+            onPressed: () => context.go('/'),
           ),
         ),
+      ),
       backgroundColor: Color.fromRGBO(254, 254, 254, 1),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Image.asset(
-              'assets/images/imges.jpeg',
+              widget.imageUrl,
               width: double.infinity,
               height: 286,
               fit: BoxFit.fitWidth,
@@ -59,11 +71,11 @@ class _DetailPageState extends State<DetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Men's shoe",
+                        widget.productType,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -76,7 +88,7 @@ class _DetailPageState extends State<DetailPage> {
                             color: Color.fromRGBO(255, 216, 0, 1),
                           ),
                           Text(
-                            '(4.0)',
+                            widget.rating,
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -89,11 +101,11 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Derby Leather',
+                        widget.productName,
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -103,7 +115,7 @@ class _DetailPageState extends State<DetailPage> {
                         children: [
                           Icon(Icons.attach_money),
                           Text(
-                            '120',
+                            widget.price,
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
