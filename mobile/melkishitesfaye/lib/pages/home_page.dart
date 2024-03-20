@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 254, 1),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(RouteNames.addproduct),
+        onPressed: () => context.goNamed(RouteNames.newProduct),
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Available Products',
                 style: TextStyle(
                   color: Color.fromRGBO(62, 62, 62, 1),
@@ -97,7 +97,8 @@ class _HomePageState extends State<HomePage> {
                     Product foundProduct = products[index];
                     return GestureDetector(
                       onTap: () {
-                        context.goNamed(RouteNames.detail, pathParameters: {'id': '${index + 1}'});
+                        context.goNamed(RouteNames.detail,
+                            pathParameters: {'id': '${index + 1}'});
                       },
                       child: CardWidget(
                         price: foundProduct.price,

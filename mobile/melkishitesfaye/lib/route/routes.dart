@@ -32,18 +32,42 @@ class RouteConfig {
 
                   return MaterialPage(
                       child: DetailPage(
+                    id: currproduct.id,
                     price: currproduct.price,
                     productType: currproduct.productType,
                     rating: currproduct.rating,
                     imageUrl: currproduct.imageUrl,
                     productName: currproduct.productName,
+                    desciprion: currproduct.description,
                   ));
                 }),
             GoRoute(
-              path: 'add_product',
-              name: RouteNames.addproduct,
-              builder: (context, state) => const AddProducts(),
+              path: 'new_product',
+              name: RouteNames.newProduct,
+              builder: (context, state) => AddProducts(),
             ),
+            GoRoute(
+              path: 'add_product/:id',
+              name: RouteNames.addproduct,
+              pageBuilder: (context, state) {
+                  final id = state.pathParameters['id'];
+                  late Product currproduct;
+                  for (var product in products) {
+                    if (product.id == id) {
+                      currproduct = product;
+                      break;
+                    }
+                  }
+
+                  return MaterialPage(
+                      child: AddProducts(
+                    price: currproduct.price,
+                    productType: currproduct.productType,
+                    // imageUrl: currproduct.imageUrl,
+                    productName: currproduct.productName,
+                    desciprion: currproduct.description,
+                  ));
+                }),
           ],
         )
       ],

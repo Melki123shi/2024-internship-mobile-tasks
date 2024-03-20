@@ -1,45 +1,43 @@
 import 'package:flutter/material.dart';
 
-class ButtonWidget extends StatefulWidget {
+class ButtonWidget extends StatelessWidget {
   final double width;
   final double height;
   final Color bgColor;
   final Color borderColor;
   final Color textColor;
   final String text;
+  VoidCallback onTap;
 
-  const ButtonWidget(
-      {super.key,
-      required this.width,
-      required this.height,
-      required this.bgColor,
-      required this.borderColor,
-      required this.textColor,
-      required this.text});
+  ButtonWidget({
+    super.key,
+    required this.onTap,
+    required this.width,
+    required this.height,
+    required this.bgColor,
+    required this.borderColor,
+    required this.textColor,
+    required this.text,
+  });
 
-  @override
-  State<ButtonWidget> createState() => _ButtonWidgetState();
-}
-
-class _ButtonWidgetState extends State<ButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          widget.text,
-          style:
-              TextStyle(color: widget.textColor, fontWeight: FontWeight.bold),
+          text,
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
         ),
         decoration: BoxDecoration(
-            color: widget.bgColor,
+            color: bgColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: widget.borderColor,
+              color: borderColor,
             )),
-        width: widget.width,
-        height: widget.height,
+        width: width,
+        height: height,
       ),
     );
   }

@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:melkishitesfaye/data/data.dart';
+import 'package:melkishitesfaye/route/route_name.dart';
 import 'package:melkishitesfaye/widget/button.dart';
 
 class DetailPage extends StatefulWidget {
+  final String id;
   final String price;
   final String productType;
   final String rating;
   final String imageUrl;
   final String productName;
+  final String desciprion;
 
   const DetailPage(
       {super.key,
+      required this.id,
       required this.price,
       required this.productType,
       required this.rating,
       required this.imageUrl,
-      required this.productName});
+      required this.productName,
+      required this.desciprion});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -29,6 +35,10 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  void removeProduct(String productId) {
+    products.removeWhere((product) => product.id == productId);
   }
 
   @override
@@ -71,7 +81,7 @@ class _DetailPageState extends State<DetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -101,7 +111,7 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -185,8 +195,8 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text(
-                    'A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
+                  Text(
+                    widget.desciprion,
                     style: TextStyle(
                       color: Color.fromRGBO(102, 102, 102, 1),
                       fontWeight: FontWeight.w500,
@@ -195,10 +205,14 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ButtonWidget(
+                          onTap: () {
+                            removeProduct;
+                            context.goNamed(RouteNames.home);
+                          },
                           text: 'DELETE',
                           bgColor: Colors.white,
                           borderColor: Color.fromRGBO(255, 19, 19, 0.79),
@@ -206,12 +220,17 @@ class _DetailPageState extends State<DetailPage> {
                           textColor: Color.fromRGBO(255, 19, 19, 0.79),
                           width: 152),
                       ButtonWidget(
-                          text: 'UPDATE',
-                          bgColor: Color.fromRGBO(63, 81, 243, 1),
-                          borderColor: Color.fromRGBO(63, 81, 243, 1),
-                          height: 50,
-                          textColor: Color.fromRGBO(255, 255, 255, 0.79),
-                          width: 152)
+                        onTap: () {
+                          context.goNamed(RouteNames.addproduct,
+                              pathParameters: {'id': widget.id});
+                        },
+                        text: 'UPDATE',
+                        bgColor: Color.fromRGBO(63, 81, 243, 1),
+                        borderColor: Color.fromRGBO(63, 81, 243, 1),
+                        height: 50,
+                        textColor: Color.fromRGBO(255, 255, 255, 0.79),
+                        width: 152,
+                      )
                     ],
                   )
                 ],
