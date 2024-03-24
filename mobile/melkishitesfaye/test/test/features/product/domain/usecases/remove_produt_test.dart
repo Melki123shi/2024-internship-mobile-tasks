@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
 import 'package:melkishitesfaye/features/product/domain/usecases/delete_produt.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

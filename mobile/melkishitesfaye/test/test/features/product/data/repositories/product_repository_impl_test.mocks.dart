@@ -147,11 +147,11 @@ class MockProductLocalDataSource extends _i1.Mock
       ) as _i4.Future<List<_i2.Product>>);
 
   @override
-  _i4.Future<void> chacheProducts(List<_i2.Product>? products) =>
+  _i4.Future<void> cacheProducts(List<_i2.Product>? productsToCache) =>
       (super.noSuchMethod(
         Invocation.method(
-          #chacheProducts,
-          [products],
+          #cacheProducts,
+          [productsToCache],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
