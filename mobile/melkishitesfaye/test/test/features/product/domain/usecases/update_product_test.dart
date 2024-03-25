@@ -22,16 +22,7 @@ void main() {
         title: '',
         description: '',
       );
-      final updateProduct = Product(
-        id: '1',
-        price: 900,
-        catagory: '',
-        rating: 9,
-        image: '',
-        title: 'jklo',
-        description: '',
-      );
-
+      
       when(product(Params(product: tProduct, id: tid)))
           .thenAnswer((_) async => Right(tProduct));
 
