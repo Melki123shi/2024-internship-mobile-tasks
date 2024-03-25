@@ -61,13 +61,12 @@ void main() {
         title: "title",
         description: "description",
       );
+      
       final List<ProductModel> tProducts = [productModel];
-      final expectedJsonStrings = tProducts
-          .map((product) => json.encode(product.toJson()))
-          .toList()
-          .join('\n');
+      final expectedJsonStrings =
+          tProducts.map((product) => json.encode(product.toJson())).toList();
 
-      when(mockSharedPreferences.setString(
+      when(mockSharedPreferences.setStringList(
         any,
         any,
       )).thenAnswer((_) => Future.value(true));
@@ -76,10 +75,11 @@ void main() {
       await dataSource.cacheProducts(tProducts);
 
       //assert
-      verify(mockSharedPreferences.setString(
+      verify(mockSharedPreferences.setStringList(
         CACHED_PRODUCTS,
         expectedJsonStrings,
       )).called(1);
     });
   });
+
 }

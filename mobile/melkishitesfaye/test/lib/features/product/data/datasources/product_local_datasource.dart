@@ -36,9 +36,13 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
 
   @override
   Future<void> cacheProducts(List<Product> productsToCache) {
-    return sharedPreferences.setString(
+    print(productsToCache);
+    final listCaches = productsToCache.map((cached) {
+      return json.encode(cached);
+    }).toList();
+    return sharedPreferences.setStringList(
       CACHED_PRODUCTS,
-      json.encode(productsToCache),
+      listCaches,
     );
   }
 }
