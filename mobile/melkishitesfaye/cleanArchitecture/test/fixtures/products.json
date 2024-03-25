@@ -1,0 +1,29 @@
+[
+    {
+        "_id": "123",
+        "price": 10,
+        "category": "productType",
+        "rating": {"rate": 4.0, "count": 0.0},
+        "image": "imageUrl",
+        "title": "productName",
+        "description": "description"
+    },
+    {
+        "_id": "234",
+        "price": 40,
+        "category": "productType",
+        "rating": {"rate": 4.0, "count": 0.0},
+        "image": "imageUrl",
+        "title": "productName",
+        "description": "description"
+    },
+    {
+        "_id": "456",
+        "price": 100,
+        "category": "productType",
+        "rating": {"rate": 4, "count": 0.0},
+        "image": "imageUrl",
+        "title": "productName",
+        "description": "description"
+    }
+]
