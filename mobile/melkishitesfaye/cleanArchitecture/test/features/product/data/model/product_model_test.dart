@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
-import 'package:melkishitesfaye/features/product/domain/usecases/get_product.dart';
+import 'package:melkishitesfaye/features/product/domain/usecases/get_product_usecase.dart';
 import 'package:mockito/annotations.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -15,7 +15,7 @@ void main() {
   final tProduct = ProductModel(
       id: 'id',
       price: 10.0,
-      catagory: 'productType',
+      category: 'productType',
       rating: 4.0,
       image : 'imageUrl',
       title: 'productName',

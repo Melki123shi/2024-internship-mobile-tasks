@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/route/routes.dart';
+import 'package:melkishitesfaye/features/product/presentatoin/bloc/product_bloc.dart';
+import 'package:melkishitesfaye/core/routing/routes.dart';
+import 'package:melkishitesfaye/injection_container.dart';
 
-void main() {
+Future<void> main() async {
+  await setup();
   runApp(const MyApp());
 }
 
@@ -12,18 +16,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Shoes Shop',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme,
-        ),
+    return BlocProvider(
+      create: (context) => ProductBloc(
+        getProduct: getIt(),
+        getProducts: getIt(),
+        deleteProduct: getIt(),
+        addProduct: getIt(),
+        updateProduct: getIt(),
       ),
-      routerConfig: RouteConfig.returnRouter(),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Shoes Shop',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+          textTheme: GoogleFonts.poppinsTextTheme(
+            Theme.of(context).textTheme,
+          ),
+        ),
+        routerConfig: RouteConfig.returnRouter(),
+      ),
     );
   }
 }
-

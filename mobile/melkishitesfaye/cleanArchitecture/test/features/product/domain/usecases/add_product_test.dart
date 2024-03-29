@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
-import 'package:melkishitesfaye/features/product/domain/usecases/add_product.dart';
+import 'package:melkishitesfaye/features/product/domain/usecases/add_product_usecase.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -15,17 +15,17 @@ void main() {
       final tProduct = Product(
         id: '1',
         price: 700,
-        catagory: '',
+        category: '',
         rating: 9,
         image: '',
         title: '',
         description: '',
       );
 
-      when(product(Params(product: tProduct)))
+      when(product(AddParams(product: tProduct)))
           .thenAnswer((_) async => Right(tProduct));
 
-      final result = await product(Params(product: tProduct));
+      final result = await product(AddParams(product: tProduct));
 
       expect(result, Right(tProduct));
     });

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
-import 'package:melkishitesfaye/features/product/data/datasources/product_local_datasource.dart';
+import 'package:melkishitesfaye/features/product/data/datasources/product_local_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -55,7 +55,7 @@ void main() {
       final ProductModel productModel = ProductModel(
         id: "123",
         price: 10.0,
-        catagory: "catagory",
+        category: "category",
         rating: 4.0,
         image: "image",
         title: "title",

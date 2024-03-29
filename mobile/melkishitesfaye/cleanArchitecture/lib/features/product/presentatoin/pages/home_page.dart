@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../data/data.dart';
+import '../../../../core/common/widgets/loader.dart';
+import '../bloc/product_bloc.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/route/route_name.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/widget/card.dart';
+import '../../../../core/routing/route_name.dart';
+import '../widget/card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductBloc>().add(GetProductsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     void notification() {}
@@ -89,27 +98,46 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 900,
-                child: ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    Product foundProduct = products[index];
-                    return GestureDetector(
-                      onTap: () {
-                        context.goNamed(RouteNames.detail,
-                            pathParameters: {'id': '${index + 1}'});
-                      },
-                      child: CardWidget(
-                        price: foundProduct.price.toString(),
-                        catagory: foundProduct.catagory,
-                        rating: foundProduct.rating.toString(),
-                        imageUrl: foundProduct.image.toString(),
-                        title: foundProduct.title,
+              BlocConsumer<ProductBloc, ProductState>(
+                listener: (context, state) {
+                  if (state is FailureState) {
+                   Center(child: Text("error occured"));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is GetProductsLoading) {
+                    return const Center(child: ProductsShowLoader());
+                  }
+                  if (state is SucessLoadProducts) {
+                    return SizedBox(
+                      height: 900,
+                      child: ListView.builder(
+                        itemCount: state.products.length,
+                        itemBuilder: (context, index) {
+                          Product foundProduct = state.products[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.goNamed(RouteNames.detail,
+                                  pathParameters: {'id': foundProduct.id});
+                            },
+                            child: CardWidget(
+                              price: foundProduct.price.toString(),
+                              catagory: foundProduct.category,
+                              rating: foundProduct.rating.toString(),
+                              image: foundProduct.image.toString(),
+                              title: foundProduct.title,
+                            ),
+                          );
+                        },
                       ),
                     );
-                  },
-                ),
+                  }
+                  return const SizedBox(
+                    child: Center(
+                      child: Text('No products found'),
+                    ),
+                  );
+                },
               ),
             ],
           ),

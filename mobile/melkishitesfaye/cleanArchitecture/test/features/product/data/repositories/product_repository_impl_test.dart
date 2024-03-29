@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
 import 'package:melkishitesfaye/core/error/faliure.dart';
 import 'package:melkishitesfaye/core/network/network_info.dart';
-import 'package:melkishitesfaye/features/product/data/datasources/product_local_datasource.dart';
-import 'package:melkishitesfaye/features/product/data/datasources/product_remote.dart';
+import 'package:melkishitesfaye/features/product/data/datasources/product_local_data_source.dart';
+import 'package:melkishitesfaye/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/data/repositories/product_repository_impl.dart';
 import 'package:mockito/annotations.dart';
@@ -51,7 +51,7 @@ void main() {
     final tProductModel = ProductModel(
       id: 'id',
       price: 12.0,
-      catagory: 'productType',
+      category: 'productType',
       rating: 3.0,
       image: 'image',
       title: 'productName',
@@ -119,7 +119,7 @@ void main() {
     final tProductModel = ProductModel(
        id: 'id',
       price: 12,
-      catagory: 'productType',
+      category: 'productType',
       rating: 3,
       image: 'image',
       title: 'productName',

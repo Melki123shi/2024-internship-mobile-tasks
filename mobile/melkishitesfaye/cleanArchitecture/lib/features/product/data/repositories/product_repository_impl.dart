@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
 import 'package:melkishitesfaye/core/error/faliure.dart';
+import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
 import 'package:melkishitesfaye/features/product/domain/repositories/product_repository.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/network/network_info.dart';
-import '../datasources/product_local_datasource.dart';
-import '../datasources/product_remote.dart';
+import '../datasources/product_local_data_source.dart';
+import '../datasources/product_remote_data_source.dart';
 
 typedef Future<Product> _CallProductmethods();
 
@@ -24,7 +28,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, Product>> addProduct(Product product) async {
     return await _productMethods(() {
-      return remoteDataSource.addProduct(product);
+      return remoteDataSource.addProduct(product as ProductModel);
     });
   }
 
@@ -37,6 +41,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, List<Product>>> getProducts() async {
+    print(await networkInfo.isConnected);
     if (await networkInfo.isConnected) {
       try {
         final remoteProduct = await remoteDataSource.getProducts();
@@ -48,6 +53,7 @@ class ProductRepositoryImpl implements ProductRepository {
     } else {
       try {
         final localProduct = await localDataSource.getAvailableProducts();
+        print(localProduct);
         return Right(localProduct);
       } on CacheException {
         return Left(CacheFailure());
@@ -59,7 +65,7 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, Product>> updateProduct(
       Product product, String id) async {
     return await _productMethods(() {
-      return remoteDataSource.updateProduct(product, id);
+      return remoteDataSource.updateProduct(product as ProductModel, id);
     });
   }
 
