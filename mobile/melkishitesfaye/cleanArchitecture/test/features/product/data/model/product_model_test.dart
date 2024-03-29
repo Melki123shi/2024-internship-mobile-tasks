@@ -10,13 +10,13 @@ import '../../../../fixtures/fixture_reader.dart';
 
 // import 'get_product_test.mocks.dart';
 
-@GenerateMocks([GetProduct])
+@GenerateMocks([GetProductUseCase])
 void main() {
   final tProduct = ProductModel(
       id: 'id',
-      price: 10.0,
+      price: 10,
       category: 'productType',
-      rating: 4.0,
+      rating: 4,
       image : 'imageUrl',
       title: 'productName',
       description: 'description');

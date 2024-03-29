@@ -7,11 +7,12 @@ import 'package:mockito/mockito.dart';
 
 import 'update_product_test.mocks.dart';
 
-@GenerateMocks([UpdateProduct])
+
+@GenerateMocks([UpdateProductUseCase])
 void main() {
   group('getProduct', () {
     test('returns a product if the http call completes successfully', () async {
-      final product = MockUpdateProduct();
+      final product = MockUpdateProductUseCase();
       final tid = '1';
       final tProduct = Product(
         id: '1',

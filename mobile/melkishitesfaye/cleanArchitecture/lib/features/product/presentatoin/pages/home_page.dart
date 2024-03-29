@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/common/widgets/loader.dart';
+import 'package:intl/intl.dart'
+;
 import '../bloc/product_bloc.dart';
-import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
+import '../../domain/entities/product.dart';
 import '../../../../core/routing/route_name.dart';
 import '../widget/card.dart';
 
@@ -25,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     void notification() {}
+    String currentDateTime =
+        DateFormat.yMMMMd().add_Hms().format(DateTime.now());
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 254, 1),
       floatingActionButton: FloatingActionButton(
@@ -37,11 +39,11 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       ),
       appBar: AppBar(
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'July 14, 2023',
+              currentDateTime,
               style: TextStyle(
                   fontSize: 12,
                   color: Color.fromARGB(255, 153, 153, 153),
@@ -101,17 +103,24 @@ class _HomePageState extends State<HomePage> {
               BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) {
                   if (state is FailureState) {
-                   Center(child: Text("error occured"));
+                    Center(child: Text("error occured"));
                   }
                 },
                 builder: (context, state) {
                   if (state is GetProductsLoading) {
-                    return const Center(child: ProductsShowLoader());
+                    return const Column(
+                      children: [
+                        SizedBox(height: 250,),
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    );
                   }
                   if (state is SucessLoadProducts) {
-                    return SizedBox(
-                      height: 900,
-                      child: ListView.builder(
+                     return SizedBox(
+                      height: 3900,
+                      child:  ListView.builder(
                         itemCount: state.products.length,
                         itemBuilder: (context, index) {
                           Product foundProduct = state.products[index];
@@ -143,6 +152,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+   
     );
   }
 }

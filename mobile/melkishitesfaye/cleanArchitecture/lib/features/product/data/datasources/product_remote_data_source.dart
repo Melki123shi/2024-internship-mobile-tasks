@@ -31,7 +31,7 @@ abstract class ProductRemoteDataSource {
   /// Calls the https://products-api-5a5n.onrender.com/apiapi/v1/{number} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
-  Future<List<Product>> getProducts();
+  Future<List<ProductModel>> getProducts();
 }
 
 class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
@@ -135,6 +135,8 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
         filename: product.imageFile!.path,
       );
       request.files.add(multipartImage);
+    } else {
+      request.fields["image"] = product.image!;
     }
     var imageByteLength = request.contentLength;
     Map<String, String> headers = {

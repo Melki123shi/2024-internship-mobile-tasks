@@ -50,9 +50,9 @@ void main() {
     final tid = '1';
     final tProductModel = ProductModel(
       id: 'id',
-      price: 12.0,
+      price: 12,
       category: 'productType',
-      rating: 3.0,
+      rating: 3,
       image: 'image',
       title: 'productName',
       description: 'description',

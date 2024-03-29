@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:melkishitesfaye/core/network/network_info.dart';
-import 'package:melkishitesfaye/core/util/input_converter.dart';
 import 'package:melkishitesfaye/features/product/data/datasources/product_local_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/repositories/product_repository_impl.dart';
@@ -59,10 +58,6 @@ Future<void> setup() async {
     () => ProductLocalDataSourceImpl(sharedPreferences: getIt()),
   );
 
-  //! core
-  getIt.registerLazySingleton<InputConverter>(
-    () => InputConverter(),
-  );
   getIt.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(getIt()),
   );

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../data/model/product_model.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/usecases/get_products_usecase.dart';
 

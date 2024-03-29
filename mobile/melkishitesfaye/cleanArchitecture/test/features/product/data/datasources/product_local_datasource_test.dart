@@ -35,7 +35,7 @@ void main() {
             .thenReturn(fixtureList('product_cached.json'));
 
         final result = await dataSource.getAvailableProducts();
-        verify(mockSharedPreferences.getStringList(CACHED_PRODUCTS));
+        verify(mockSharedPreferences.getStringList('CACHED_PRODUCT'));
         expect(result, tProducts);
       },
     );
@@ -54,9 +54,9 @@ void main() {
     test('should call SharedPreferences to cache the data', () async {
       final ProductModel productModel = ProductModel(
         id: "123",
-        price: 10.0,
+        price: 10,
         category: "category",
-        rating: 4.0,
+        rating: 4,
         image: "image",
         title: "title",
         description: "description",
@@ -76,7 +76,7 @@ void main() {
 
       //assert
       verify(mockSharedPreferences.setStringList(
-        CACHED_PRODUCTS,
+        'CACHED_PRODUCT',
         expectedJsonStrings,
       )).called(1);
     });

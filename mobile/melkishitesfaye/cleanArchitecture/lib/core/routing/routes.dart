@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/add_products.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/detail.dart';
+import 'package:melkishitesfaye/features/product/presentatoin/pages/add_products_page.dart';
+import 'package:melkishitesfaye/features/product/presentatoin/pages/product_detail_page.dart';
 import 'package:melkishitesfaye/features/product/presentatoin/pages/home_page.dart';
 import 'package:melkishitesfaye/core/routing/route_name.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/update_page_try.dart';
+import 'package:melkishitesfaye/features/product/presentatoin/pages/update_product_page.dart';
 
 class RouteConfig {
   static GoRouter returnRouter() {

@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
 import 'package:melkishitesfaye/core/error/faliure.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
 import 'package:melkishitesfaye/features/product/domain/repositories/product_repository.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../core/network/network_info.dart';
 import '../datasources/product_local_data_source.dart';
@@ -40,7 +37,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getProducts() async {
+  Future<Either<Failure, List<ProductModel>>> getProducts() async {
     print(await networkInfo.isConnected);
     if (await networkInfo.isConnected) {
       try {

@@ -6,6 +6,7 @@ import 'package:melkishitesfaye/core/routing/routes.dart';
 import 'package:melkishitesfaye/injection_container.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setup();
   runApp(const MyApp());
 }
