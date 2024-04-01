@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
-import 'package:melkishitesfaye/features/product/data/datasources/product_remote.dart';
+import 'package:melkishitesfaye/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
 import 'package:mockito/annotations.dart';

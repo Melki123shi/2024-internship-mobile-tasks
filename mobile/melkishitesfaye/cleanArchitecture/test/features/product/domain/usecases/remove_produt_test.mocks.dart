@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart' as _i3;
 import 'package:melkishitesfaye/core/error/faliure.dart' as _i6;
 import 'package:melkishitesfaye/features/product/domain/repositories/product_repository.dart'
     as _i2;
-import 'package:melkishitesfaye/features/product/domain/usecases/delete_produt.dart'
+import 'package:melkishitesfaye/features/product/domain/usecases/delete_product_usecase.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -47,11 +47,12 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [DeleteProduct].
+/// A class which mocks [DeleteProductUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDeleteProduct extends _i1.Mock implements _i4.DeleteProduct {
-  MockDeleteProduct() {
+class MockDeleteProductUseCase extends _i1.Mock
+    implements _i4.DeleteProductUseCase {
+  MockDeleteProductUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -65,18 +66,19 @@ class MockDeleteProduct extends _i1.Mock implements _i4.DeleteProduct {
       ) as _i2.ProductRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i4.Params? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(
+          _i4.DeleteParams? deleteparams) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
-          [params],
+          [deleteparams],
         ),
         returnValue: _i5.Future<_i3.Either<_i6.Failure, String>>.value(
             _FakeEither_1<_i6.Failure, String>(
           this,
           Invocation.method(
             #call,
-            [params],
+            [deleteparams],
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, String>>);

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
-import 'package:melkishitesfaye/features/product/data/datasources/product_local_datasource.dart';
+import 'package:melkishitesfaye/features/product/data/datasources/product_local_data_source.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -35,7 +35,7 @@ void main() {
             .thenReturn(fixtureList('product_cached.json'));
 
         final result = await dataSource.getAvailableProducts();
-        verify(mockSharedPreferences.getStringList(CACHED_PRODUCTS));
+        verify(mockSharedPreferences.getStringList('CACHED_PRODUCT'));
         expect(result, tProducts);
       },
     );
@@ -54,9 +54,9 @@ void main() {
     test('should call SharedPreferences to cache the data', () async {
       final ProductModel productModel = ProductModel(
         id: "123",
-        price: 10.0,
-        catagory: "catagory",
-        rating: 4.0,
+        price: 10,
+        category: "category",
+        rating: 4,
         image: "image",
         title: "title",
         description: "description",
@@ -76,7 +76,7 @@ void main() {
 
       //assert
       verify(mockSharedPreferences.setStringList(
-        CACHED_PRODUCTS,
+        'CACHED_PRODUCT',
         expectedJsonStrings,
       )).called(1);
     });

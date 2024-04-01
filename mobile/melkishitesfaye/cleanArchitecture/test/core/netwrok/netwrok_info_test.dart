@@ -1,5 +1,5 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:melkishitesfaye/core/network/network_info.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -7,30 +7,30 @@ import 'package:mockito/mockito.dart';
 import 'netwrok_info_test.mocks.dart';
 
 
-@GenerateMocks([Connectivity])
+@GenerateMocks([InternetConnection])
 void main() {
   late NetworkInfoImpl networkInfo;
-  late MockConnectivity mockConnectivity;
+  late MockInternetConnection mockInternetConnection;
 
   setUp(() {
-    mockConnectivity = MockConnectivity();
-    networkInfo = NetworkInfoImpl(mockConnectivity);
+    mockInternetConnection = MockInternetConnection();
+    networkInfo = NetworkInfoImpl(mockInternetConnection);
   });
 
   group('isConnected', () {
     test(
-      'should forward the call to Connectivity.checkConnectivity',
+      'should forward the call to InternetConnectionChecker.hasConnection',
       () async {
         // arrange
-        final tConnectivityResult = ConnectivityResult.wifi;
+        final tHasConnection = Future.value(true); // or false based on your test case
 
-        when(mockConnectivity.checkConnectivity())
-            .thenAnswer((_) => Future.value(tConnectivityResult));
+        when(mockInternetConnection.hasInternetAccess)
+            .thenAnswer((_) => tHasConnection);
         // act
         final result = await networkInfo.isConnected;
         // assert
-        verify(mockConnectivity.checkConnectivity());
-        expect(result, equals(true)); 
+        verify(mockInternetConnection.hasInternetAccess);
+        expect(result, equals(true)); // or false based on your test case
       },
     );
   });

@@ -11,7 +11,7 @@ import 'package:melkishitesfaye/features/product/domain/entities/product.dart'
     as _i7;
 import 'package:melkishitesfaye/features/product/domain/repositories/product_repository.dart'
     as _i2;
-import 'package:melkishitesfaye/features/product/domain/usecases/update_product.dart'
+import 'package:melkishitesfaye/features/product/domain/usecases/update_product_usecase.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -49,11 +49,12 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [UpdateProduct].
+/// A class which mocks [UpdateProductUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUpdateProduct extends _i1.Mock implements _i4.UpdateProduct {
-  MockUpdateProduct() {
+class MockUpdateProductUseCase extends _i1.Mock
+    implements _i4.UpdateProductUseCase {
+  MockUpdateProductUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -67,18 +68,19 @@ class MockUpdateProduct extends _i1.Mock implements _i4.UpdateProduct {
       ) as _i2.ProductRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.Product>> call(_i4.Params? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Product>> call(
+          _i4.UpdateParams? updateParams) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
-          [params],
+          [updateParams],
         ),
         returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Product>>.value(
             _FakeEither_1<_i6.Failure, _i7.Product>(
           this,
           Invocation.method(
             #call,
-            [params],
+            [updateParams],
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Product>>);

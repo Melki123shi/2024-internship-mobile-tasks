@@ -12,7 +12,7 @@ import 'package:melkishitesfaye/features/product/domain/entities/product.dart'
     as _i7;
 import 'package:melkishitesfaye/features/product/domain/repositories/product_repository.dart'
     as _i2;
-import 'package:melkishitesfaye/features/product/domain/usecases/get_products.dart'
+import 'package:melkishitesfaye/features/product/domain/usecases/get_products_usecase.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -50,11 +50,12 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [GetProducts].
+/// A class which mocks [GetProductsUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetProducts extends _i1.Mock implements _i4.GetProducts {
-  MockGetProducts() {
+class MockGetProductsUseCase extends _i1.Mock
+    implements _i4.GetProductsUseCase {
+  MockGetProductsUseCase() {
     _i1.throwOnMissingStub(this);
   }
 

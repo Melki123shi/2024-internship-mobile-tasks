@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../data/data.dart';
-import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/pages/route/route_name.dart';
-import 'package:melkishitesfaye/features/product/presentatoin/widget/card.dart';
+import 'package:intl/intl.dart';
+import '../bloc/product_bloc.dart';
+import '../../domain/entities/product.dart';
+import '../../../../core/routing/route_name.dart';
+import '../widget/card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,8 +16,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<ProductBloc>().add(GetProductsEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     void notification() {}
+    String currentDateTime =
+        DateFormat.yMMMMd().add_Hms().format(DateTime.now());
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 254, 1),
       floatingActionButton: FloatingActionButton(
@@ -28,11 +38,11 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       ),
       appBar: AppBar(
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'July 14, 2023',
+              currentDateTime,
               style: TextStyle(
                   fontSize: 12,
                   color: Color.fromARGB(255, 153, 153, 153),
@@ -81,35 +91,96 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Available Products',
-                style: TextStyle(
-                  color: Color.fromRGBO(62, 62, 62, 1),
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 900,
-                child: ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    Product foundProduct = products[index];
-                    return GestureDetector(
-                      onTap: () {
-                        context.goNamed(RouteNames.detail,
-                            pathParameters: {'id': '${index + 1}'});
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Available Products',
+                    style: TextStyle(
+                      color: Color.fromRGBO(62, 62, 62, 1),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(0.2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: Color.fromARGB(255, 253, 253, 253),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 1.0,
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        context.goNamed(
+                          RouteNames.searchProduct,
+                        );
                       },
-                      child: CardWidget(
-                        price: foundProduct.price.toString(),
-                        catagory: foundProduct.catagory,
-                        rating: foundProduct.rating.toString(),
-                        imageUrl: foundProduct.image.toString(),
-                        title: foundProduct.title,
+                      icon: const Icon(
+                        Icons.search,
                       ),
+                    ),
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+//
+                  )
+                ],
+              ),
+              BlocConsumer<ProductBloc, ProductState>(
+                listener: (context, state) {
+                  if (state is FailureState) {
+                    Center(child: Text("error occured"));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is GetProductsLoading) {
+                    return const Column(
+                      children: [
+                        SizedBox(
+                          height: 250,
+                        ),
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
                     );
-                  },
-                ),
+                  }
+                  if (state is SucessLoadProducts) {
+                    //  return SizedBox(
+                    //   height: 1000,
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: state.products.length,
+                      itemBuilder: (context, index) {
+                        Product foundProduct = state.products[index];
+                        return GestureDetector(
+                          onTap: () {
+                            context.goNamed(RouteNames.detail,
+                                pathParameters: {'id': foundProduct.id});
+                          },
+                          child: CardWidget(
+                            price: foundProduct.price.toString(),
+                            catagory: foundProduct.category,
+                            rating: foundProduct.rating.toString(),
+                            image: foundProduct.image.toString(),
+                            title: foundProduct.title,
+                          ),
+                        );
+                      },
+                      // ),
+                    );
+                  }
+                  return const SizedBox(
+                    child: Center(
+                      child: Text('No products found'),
+                    ),
+                  );
+                },
               ),
             ],
           ),

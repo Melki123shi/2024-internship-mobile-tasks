@@ -5,15 +5,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:melkishitesfaye/core/network/network_info.dart' as _i7;
-import 'package:melkishitesfaye/features/product/data/datasources/product_local_datasource.dart'
-    as _i6;
-import 'package:melkishitesfaye/features/product/data/datasources/product_remote.dart'
+import 'package:melkishitesfaye/core/network/network_info.dart' as _i8;
+import 'package:melkishitesfaye/features/product/data/datasources/product_local_data_source.dart'
+    as _i7;
+import 'package:melkishitesfaye/features/product/data/datasources/product_remote_data_source.dart'
     as _i3;
+import 'package:melkishitesfaye/features/product/data/model/product_model.dart'
+    as _i5;
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -48,7 +50,7 @@ class MockProductRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Product> addProduct(_i2.Product? product) =>
+  _i4.Future<_i2.Product> addProduct(_i5.ProductModel? product) =>
       (super.noSuchMethod(
         Invocation.method(
           #addProduct,
@@ -69,7 +71,7 @@ class MockProductRemoteDataSource extends _i1.Mock
           #deleteProduct,
           [id],
         ),
-        returnValue: _i4.Future<String>.value(_i5.dummyValue<String>(
+        returnValue: _i4.Future<String>.value(_i6.dummyValue<String>(
           this,
           Invocation.method(
             #deleteProduct,
@@ -80,7 +82,7 @@ class MockProductRemoteDataSource extends _i1.Mock
 
   @override
   _i4.Future<_i2.Product> updateProduct(
-    _i2.Product? product,
+    _i5.ProductModel? product,
     String? id,
   ) =>
       (super.noSuchMethod(
@@ -119,39 +121,42 @@ class MockProductRemoteDataSource extends _i1.Mock
       ) as _i4.Future<_i2.Product>);
 
   @override
-  _i4.Future<List<_i2.Product>> getProducts() => (super.noSuchMethod(
+  _i4.Future<List<_i5.ProductModel>> getProducts() => (super.noSuchMethod(
         Invocation.method(
           #getProducts,
           [],
         ),
-        returnValue: _i4.Future<List<_i2.Product>>.value(<_i2.Product>[]),
-      ) as _i4.Future<List<_i2.Product>>);
+        returnValue:
+            _i4.Future<List<_i5.ProductModel>>.value(<_i5.ProductModel>[]),
+      ) as _i4.Future<List<_i5.ProductModel>>);
 }
 
 /// A class which mocks [ProductLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductLocalDataSource extends _i1.Mock
-    implements _i6.ProductLocalDataSource {
+    implements _i7.ProductLocalDataSource {
   MockProductLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i2.Product>> getAvailableProducts() => (super.noSuchMethod(
+  _i4.Future<List<_i5.ProductModel>> getAvailableProducts() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAvailableProducts,
           [],
         ),
-        returnValue: _i4.Future<List<_i2.Product>>.value(<_i2.Product>[]),
-      ) as _i4.Future<List<_i2.Product>>);
+        returnValue:
+            _i4.Future<List<_i5.ProductModel>>.value(<_i5.ProductModel>[]),
+      ) as _i4.Future<List<_i5.ProductModel>>);
 
   @override
-  _i4.Future<void> cacheProducts(List<_i2.Product>? productsToCache) =>
+  _i4.Future<void> cacheProducts(List<_i5.ProductModel>? products) =>
       (super.noSuchMethod(
         Invocation.method(
           #cacheProducts,
-          [productsToCache],
+          [products],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
@@ -161,7 +166,7 @@ class MockProductLocalDataSource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i7.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }

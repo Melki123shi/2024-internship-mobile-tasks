@@ -1,20 +1,24 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
   final String id;
-  final double price;
-  final String catagory;
-  final double rating;
-  final String image;
+  final int price;
+  final String category;
+  final int rating;
+  String? image;
+  File? imageFile;
   final String title;
   final String description;
 
-  const Product({
+  Product({
     required this.id,
     required this.price,
-    required this.catagory,
+    required this.category,
     required this.rating,
-    required this.image,
+    this.image,
+    this.imageFile,
     required this.title,
     required this.description,
   });
@@ -23,12 +27,11 @@ class Product extends Equatable {
   List<Object?> get props => [
         id,
         price,
-        catagory,
+        category,
         rating,
         image,
+        imageFile,
         title,
         description,
       ];
 }
-
-

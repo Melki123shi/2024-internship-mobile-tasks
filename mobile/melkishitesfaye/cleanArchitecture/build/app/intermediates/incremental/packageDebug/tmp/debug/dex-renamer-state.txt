@@ -1,0 +1,4 @@
+#Mon Apr 01 09:20:43 EAT 2024
+base.0=/home/melki/Desktop/2024-internship-mobile-tasks/mobile/melkishitesfaye/cleanArchitecture/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
