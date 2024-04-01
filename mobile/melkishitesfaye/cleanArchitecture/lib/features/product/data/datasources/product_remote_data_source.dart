@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http_parser/http_parser.dart';
 import 'package:melkishitesfaye/core/error/exception.dart';
+import 'package:melkishitesfaye/core/network/network_info.dart';
 import 'package:melkishitesfaye/features/product/data/model/product_model.dart';
 import 'package:melkishitesfaye/features/product/domain/entities/product.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,11 @@ abstract class ProductRemoteDataSource {
   ///
   /// Throws a [ServerException] for all error codes.
   Future<List<ProductModel>> getProducts();
+
+  /// Calls the https://products-api-5a5n.onrender.com/apiapi/v1/{number} endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
+  Future<List<ProductModel>> getFilteredProducts(String title);
 }
 
 class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
@@ -44,31 +50,31 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   Future<ProductModel> addProduct(ProductModel product) async {
     var url = Uri.parse('$baseUrl');
     var request = http.MultipartRequest('POST', url);
-    request.headers['Content-Type'] = 'multipart/form-data';
     request.fields["title"] = product.title;
+    request.fields["price"] = product.price.toString();
     request.fields["description"] = product.description;
     request.fields["category"] = product.category;
-    request.fields["price"] = product.price.toString();
+    request.headers["Content-Type"] = 'multipart/form-data';
+
     if (product.imageFile != null) {
-      var multipartImage = http.MultipartFile.fromBytes(
-        contentType: MediaType('image', 'jpeg'),
-        "images",
-        File(product.imageFile!.path).readAsBytesSync(),
-        filename: "product1.PNG",
+      print(product.imageFile);
+      var fileStream =
+          http.ByteStream(Stream.castFrom(product.imageFile!.openRead()));
+      final imageLength = await product.imageFile!.length();
+      final imageUpload = http.MultipartFile(
+        'image',
+        fileStream,
+        imageLength,
+        filename: 'product_image.jpeg',
       );
-      request.files.add(multipartImage);
+      request.files.add(imageUpload);
     }
-    var imageByteLength = request.contentLength;
-    Map<String, String> headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
 
-    request.headers.addAll(headers);
     final response = await request.send();
-    var res = await http.Response.fromStream(response);
-
-    if (res.statusCode == 201) {
-      return ProductModel.fromJson(json.decode(res.body)["product"]);
+    print(response);
+    if (response.statusCode == 201) {
+      var responseBody = await response.stream.bytesToString();
+      return ProductModel.fromJson(json.decode(responseBody)['product']);
     } else {
       throw ServerException();
     }
@@ -120,27 +126,25 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   Future<ProductModel> updateProduct(ProductModel product, String id) async {
     var url = Uri.parse('$baseUrl/$id');
     var request = http.MultipartRequest('PATCH', url);
-    // request.fields["_id"] = product.id;
     request.fields["title"] = product.title;
     request.fields["description"] = product.description;
     request.fields["category"] = product.category;
     request.fields["price"] = product.price.toString();
-    print(product.imageFile);
     if (product.imageFile != null) {
       var multipartImage = http.MultipartFile.fromBytes(
-        contentType:
-            MediaType('image', product.imageFile!.path.split(".").last),
         "images",
         File(product.imageFile!.path).readAsBytesSync(),
         filename: product.imageFile!.path,
+        contentType:
+            MediaType('image', product.imageFile!.path.split(".").last),
       );
+      print(multipartImage);
       request.files.add(multipartImage);
     } else {
       request.fields["image"] = product.image!;
     }
-    var imageByteLength = request.contentLength;
     Map<String, String> headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
     };
 
     request.headers.addAll(headers);
@@ -149,8 +153,34 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
 
     if (res.statusCode == 200) {
       final result = json.decode(res.body)["product"];
-      print(result);
       return ProductModel.fromJson(result);
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> getFilteredProducts(String searchQuery) async {
+    Uri url = Uri.parse('${baseUrl}');
+    Map<String, dynamic> queryParams = {};
+
+    // Add search query parameter if available
+    if (searchQuery.isNotEmpty) {
+      queryParams['title'] = searchQuery;
+    }
+    url = url.replace(queryParameters: queryParams);
+
+    final response = await client.get(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final List<dynamic> productsJson = responseData['products'];
+      final res =
+          productsJson.map((json) => ProductModel.fromJson(json)).toList();
+      return res;
     } else {
       throw ServerException();
     }

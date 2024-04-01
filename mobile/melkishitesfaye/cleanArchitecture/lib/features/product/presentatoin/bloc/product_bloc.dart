@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:melkishitesfaye/features/product/domain/usecases/search.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../data/model/product_model.dart';
 import '../../domain/entities/product.dart';
@@ -21,8 +22,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final DeleteProductUseCase deleteProduct;
   final AddProductUseCase addProduct;
   final UpdateProductUseCase updateProduct;
+  final SearchUseCase searchproduct;
 
   ProductBloc({
+    required this.searchproduct,
     required this.getProduct,
     required this.getProducts,
     required this.deleteProduct,
@@ -84,6 +87,18 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             const FailureState('error occured while deleting the product')),
         (right) => emit(const SucessDeleteProduct(
             sucessMessage: 'sucessfluy deleted the product')),
+      );
+    });
+
+    on<GetFilteredProductsEvent>((event, emit) async {
+      emit(GetFilteredProductsLoading());
+      final response =
+          await searchproduct(SearchParams(title: event.title));
+
+      response.fold(
+        (left) => emit(
+            const FailureState('error occured while loading the products')),
+        (right) => emit((SucessLoadFilteredProducts(products: right))),
       );
     });
   }

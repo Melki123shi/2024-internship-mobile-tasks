@@ -10,6 +10,7 @@ import 'package:melkishitesfaye/features/product/domain/usecases/add_product_use
 import 'package:melkishitesfaye/features/product/domain/usecases/delete_product_usecase.dart';
 import 'package:melkishitesfaye/features/product/domain/usecases/get_product_usecase.dart';
 import 'package:melkishitesfaye/features/product/domain/usecases/get_products_usecase.dart';
+import 'package:melkishitesfaye/features/product/domain/usecases/search.dart';
 import 'package:melkishitesfaye/features/product/domain/usecases/update_product_usecase.dart';
 import 'package:melkishitesfaye/features/product/presentatoin/bloc/product_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,7 @@ Future<void> setup() async {
         updateProduct: getIt(),
         deleteProduct: getIt(),
         addProduct: getIt(),
+        searchproduct: getIt(),
       ));
 
   //! Usecases
@@ -43,6 +45,9 @@ Future<void> setup() async {
 
   getIt.registerLazySingleton<DeleteProductUseCase>(
       () => DeleteProductUseCase(repository: getIt()));
+    
+  getIt.registerLazySingleton<SearchUseCase>(
+      () => SearchUseCase(repository: getIt()));
 
   //! repository
   getIt.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
@@ -67,7 +72,7 @@ Future<void> setup() async {
     () async => await SharedPreferences.getInstance(),
   );
   await GetIt.instance.isReady<SharedPreferences>();
-  
+
   getIt.registerLazySingleton<InternetConnection>(
     () => InternetConnection(),
   );

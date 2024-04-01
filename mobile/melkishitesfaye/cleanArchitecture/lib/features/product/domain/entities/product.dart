@@ -7,8 +7,8 @@ class Product extends Equatable {
   final int price;
   final String category;
   final int rating;
-   String? image;
-   File? imageFile;
+  String? image;
+  File? imageFile;
   final String title;
   final String description;
 
@@ -17,8 +17,8 @@ class Product extends Equatable {
     required this.price,
     required this.category,
     required this.rating,
-     this.image,
-     this.imageFile,
+    this.image,
+    this.imageFile,
     required this.title,
     required this.description,
   });
@@ -30,6 +30,7 @@ class Product extends Equatable {
         category,
         rating,
         image,
+        imageFile,
         title,
         description,
       ];

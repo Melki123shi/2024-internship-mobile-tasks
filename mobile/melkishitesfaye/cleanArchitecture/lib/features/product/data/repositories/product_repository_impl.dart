@@ -94,4 +94,14 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(ServerFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, List<Product>>> getFilteredProducts(String title) async {
+      try {
+        final remoteProduct = await remoteDataSource.getFilteredProducts(title);
+        return Right(remoteProduct);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+  }
 }

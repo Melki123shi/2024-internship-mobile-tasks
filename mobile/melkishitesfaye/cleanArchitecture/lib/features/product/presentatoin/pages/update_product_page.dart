@@ -180,7 +180,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     GestureDetector(
                       onTap: selectedImage,
                       child: Container(
-                        height: 250.0,
+                        height: 190.0,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(243, 243, 243, 1),
@@ -191,30 +191,16 @@ class _UpdatePageState extends State<UpdatePage> {
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               if (imageFile != null)
-                                Stack(
-                                  children: [
-                                    Center(
-                                      child: Image.network(
-                                        imageFile!.path,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        'upload image',
-                                        style: textStyle(),
-                                      ),
-                                    ),
-                                  ],
+                                Center(
+                                  child: Image.file(
+                                    imageFile!,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               if (imageFile == null)
-                                Stack(
-                                  children: [
-                                    Image.network(
-                                      widget.image!,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ],
+                                Image.network(
+                                  widget.image!,
+                                  fit: BoxFit.fill,
                                 ),
                               Center(
                                 child: Text(
@@ -294,8 +280,9 @@ class _UpdatePageState extends State<UpdatePage> {
                     TextFormField(
                       controller: _descriptionController,
                       minLines: 4,
-                      maxLines: 200,
                       decoration: inputDecoration(),
+                      maxLines: null, // Allow unlimited lines
+                      keyboardType: TextInputType.multiline,
                     ),
                     const SizedBox(
                       height: 30,

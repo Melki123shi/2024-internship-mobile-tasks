@@ -237,7 +237,7 @@ class _DetailPageState extends State<DetailPage> {
                               height: 50,
                               textColor:
                                   const Color.fromRGBO(255, 19, 19, 0.79),
-                              width: 92),
+                              width: 120),
                           ButtonWidget(
                             onTap: () {
                               context.goNamed(RouteNames.updateroduct,
@@ -258,7 +258,7 @@ class _DetailPageState extends State<DetailPage> {
                             height: 50,
                             textColor:
                                 const Color.fromRGBO(255, 255, 255, 0.79),
-                            width: 92,
+                            width: 120,
                           )
                         ],
                       )

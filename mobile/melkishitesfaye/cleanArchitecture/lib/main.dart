@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         deleteProduct: getIt(),
         addProduct: getIt(),
         updateProduct: getIt(),
+        searchproduct: getIt(),
       ),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

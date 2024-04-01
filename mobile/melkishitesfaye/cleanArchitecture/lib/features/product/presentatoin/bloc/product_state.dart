@@ -74,3 +74,14 @@ final class FailureState extends ProductState {
   @override
   List<Object> get props => [message];
 }
+
+//get filterd products
+final class GetFilteredProductsLoading extends ProductState {}
+
+final class SucessLoadFilteredProducts extends ProductState {
+  final List<Product> products;
+  const SucessLoadFilteredProducts({required this.products});
+
+  @override
+  List<Object> get props => [];
+}

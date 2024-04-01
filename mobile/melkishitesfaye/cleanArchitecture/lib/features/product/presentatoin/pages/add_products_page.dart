@@ -1,8 +1,9 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import '../widget/button.dart';
 
 // import '../../../../core/common/widgets/loader.dart';
@@ -27,6 +28,8 @@ class _AddProductsState extends State<AddProducts> {
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
   File? imageFile;
+
+
 
   @override
   void dispose() {
@@ -125,7 +128,7 @@ class _AddProductsState extends State<AddProducts> {
           listener: (context, state) {
             print(state);
             if (state is FailureState) {
-              const Center(child: Text('error occured'));
+              const Center(child: Text('Some error occured Please Try Again'));
             }
           },
           builder: (context, state) {
@@ -154,16 +157,17 @@ class _AddProductsState extends State<AddProducts> {
                                     topLeft: Radius.circular(16),
                                     topRight: Radius.circular(16),
                                   ),
-                                  child: Image.network(
-                                    imageFile!.path,
-                                    fit: BoxFit.cover,
+                                  child: Image.file(
+                                    File(imageFile!.path).absolute,
+                                    // imageFile!,
+                                    fit: BoxFit.fill,
                                   )),
                             ),
                           )
                         : GestureDetector(
                             onTap: selectImage,
                             child: Container(
-                              height: 250.0,
+                              height: 150.0,
                               width: double.maxFinite,
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(243, 243, 243, 1),

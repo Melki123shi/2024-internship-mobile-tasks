@@ -52,3 +52,11 @@ class UpdateProductEvent extends ProductEvent {
   @override
   List<Object> get props => [id, product];
 }
+
+class GetFilteredProductsEvent extends ProductEvent {
+  final String title;
+  GetFilteredProductsEvent({required this.title});
+
+  @override
+  List<Object> get props => [title];
+}

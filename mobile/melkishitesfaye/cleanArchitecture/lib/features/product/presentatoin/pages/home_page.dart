@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart'
-;
+import 'package:intl/intl.dart';
 import '../bloc/product_bloc.dart';
 import '../../domain/entities/product.dart';
 import '../../../../core/routing/route_name.dart';
@@ -92,13 +91,44 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Available Products',
-                style: TextStyle(
-                  color: Color.fromRGBO(62, 62, 62, 1),
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Available Products',
+                    style: TextStyle(
+                      color: Color.fromRGBO(62, 62, 62, 1),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(0.2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: Color.fromARGB(255, 253, 253, 253),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 1.0,
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        context.goNamed(
+                          RouteNames.searchProduct,
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.search,
+                      ),
+                    ),
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+//
+                  )
+                ],
               ),
               BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) {
@@ -110,7 +140,9 @@ class _HomePageState extends State<HomePage> {
                   if (state is GetProductsLoading) {
                     return const Column(
                       children: [
-                        SizedBox(height: 250,),
+                        SizedBox(
+                          height: 250,
+                        ),
                         const Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -118,27 +150,29 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                   if (state is SucessLoadProducts) {
-                     return SizedBox(
-                      height: 3900,
-                      child:  ListView.builder(
-                        itemCount: state.products.length,
-                        itemBuilder: (context, index) {
-                          Product foundProduct = state.products[index];
-                          return GestureDetector(
-                            onTap: () {
-                              context.goNamed(RouteNames.detail,
-                                  pathParameters: {'id': foundProduct.id});
-                            },
-                            child: CardWidget(
-                              price: foundProduct.price.toString(),
-                              catagory: foundProduct.category,
-                              rating: foundProduct.rating.toString(),
-                              image: foundProduct.image.toString(),
-                              title: foundProduct.title,
-                            ),
-                          );
-                        },
-                      ),
+                    //  return SizedBox(
+                    //   height: 1000,
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: state.products.length,
+                      itemBuilder: (context, index) {
+                        Product foundProduct = state.products[index];
+                        return GestureDetector(
+                          onTap: () {
+                            context.goNamed(RouteNames.detail,
+                                pathParameters: {'id': foundProduct.id});
+                          },
+                          child: CardWidget(
+                            price: foundProduct.price.toString(),
+                            catagory: foundProduct.category,
+                            rating: foundProduct.rating.toString(),
+                            image: foundProduct.image.toString(),
+                            title: foundProduct.title,
+                          ),
+                        );
+                      },
+                      // ),
                     );
                   }
                   return const SizedBox(
@@ -152,7 +186,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-   
     );
   }
 }

@@ -18,9 +18,9 @@ class ProductModel extends Product {
           category: category,
           rating: rating,
           image: image,
+          imageFile: imageFile,
           title: title,
           description: description,
-          imageFile: imageFile,
         );
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -30,9 +30,9 @@ class ProductModel extends Product {
       category: json['category'],
       rating: json['rating']['rate'],
       image: json['image'],
+     imageFile: json['imageFile'],
       title: json['title'],
       description: json['description'],
-     imageFile: json['imageFile'],
     );
   }
 
@@ -45,6 +45,7 @@ class ProductModel extends Product {
       'image': image,
       'title': title,
       'description': description,
+      'imageFile': imageFile,
     };
   }
 

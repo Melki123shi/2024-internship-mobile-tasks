@@ -4,4 +4,5 @@ class RouteNames {
   static const addproduct = "addProduct";
   static const newProduct = "newProduct";
   static const updateroduct = "updateroduct";
+  static const searchProduct = "searchProduct";
 }

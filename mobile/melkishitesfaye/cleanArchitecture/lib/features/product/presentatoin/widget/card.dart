@@ -24,7 +24,7 @@ class _CardWidgetState extends State<CardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 250,
       width: 300,
       margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
       decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class _CardWidgetState extends State<CardWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SizedBox(
-            height: 200,
+            height: 180,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
@@ -57,7 +57,6 @@ class _CardWidgetState extends State<CardWidget> {
               ),
             ),
           ),
-
           Column(
             children: [
               Padding(
@@ -123,7 +122,6 @@ class _CardWidgetState extends State<CardWidget> {
               ),
             ],
           ),
-        
         ],
       ),
     );

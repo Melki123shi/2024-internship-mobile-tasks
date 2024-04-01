@@ -6,6 +6,8 @@ import 'package:melkishitesfaye/features/product/presentatoin/pages/home_page.da
 import 'package:melkishitesfaye/core/routing/route_name.dart';
 import 'package:melkishitesfaye/features/product/presentatoin/pages/update_product_page.dart';
 
+import '../../features/product/presentatoin/pages/search_page.dart';
+
 class RouteConfig {
   static GoRouter returnRouter() {
     return GoRouter(
@@ -57,6 +59,18 @@ class RouteConfig {
                 price: price ?? '0.0',
                 category: category ?? '',
                 image: image,
+              ));
+            }),
+        GoRoute(
+            path: '/search',
+            name: RouteNames.searchProduct,
+            pageBuilder: (context, state) {
+              final Map<String, dynamic> params = state.uri.queryParameters;
+              final title = params['title'];
+              return MaterialPage(
+                  child: SearchPage(
+                title: title ?? '',
+                
               ));
             }),
         // ],
