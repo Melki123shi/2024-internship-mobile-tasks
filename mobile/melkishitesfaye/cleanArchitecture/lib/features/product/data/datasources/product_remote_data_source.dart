@@ -164,7 +164,6 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
     Uri url = Uri.parse('${baseUrl}');
     Map<String, dynamic> queryParams = {};
 
-    // Add search query parameter if available
     if (searchQuery.isNotEmpty) {
       queryParams['title'] = searchQuery;
     }
